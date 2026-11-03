@@ -39,6 +39,7 @@ export const TvWelcomeScreen: React.FC<TvWelcomeScreenProps> = ({
   });
 
   const [logoImg, setLogoImg] = useState<HTMLImageElement | null>(null);
+  const [, setAssetsLoaded] = useState<number>(0);
   const [showAdvanced, setShowAdvanced] = useState<boolean>(false);
   const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
   const [isExporting, setIsExporting] = useState<boolean>(false);
@@ -47,12 +48,17 @@ export const TvWelcomeScreen: React.FC<TvWelcomeScreenProps> = ({
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const fullscreenContainerRef = useRef<HTMLDivElement | null>(null);
 
-  // Preload authentic MinGGo logo image once on mount
+  // Preload authentic MinGGo logo and 3D space cinematic assets once on mount
   useEffect(() => {
     const img = new Image();
     img.crossOrigin = 'anonymous';
     img.onload = () => setLogoImg(img);
     img.src = '/minggo-logo-tight.png';
+
+    const spaceImg = new Image();
+    spaceImg.crossOrigin = 'anonymous';
+    spaceImg.onload = () => setAssetsLoaded((prev) => prev + 1);
+    spaceImg.src = '/templates/space-astronaut-cinematic.jpg';
   }, []);
 
   // Universal canvas render helper

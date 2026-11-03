@@ -771,120 +771,262 @@ const templateDinoSafari: TvScreenTemplate = {
 };
 
 // ============================================================================
-// TEMPLATE 4: MINGGO SPACE GALAXY ODYSSEY
+// TEMPLATE 4: MINGGO COSMIC SPACE & SATURN GALAXY (EXACT 1:1 REPLICA)
 // ============================================================================
 const templateSpaceGalaxy: TvScreenTemplate = {
   id: 'tv-space-galaxy',
-  name: 'MinGGo Space Galaxy Odyssey',
-  theme: 'Cosmic Galaxy & Astronaut',
-  description: 'Deep cosmic starfield with glowing nebula, electric cyan and neon orange lettering, and planetary badges',
-  badge: 'SCI-FI',
-  previewColor: '#06b6d4',
+  name: 'MinGGo Cosmic Space & Saturn Galaxy',
+  theme: 'Cosmic Space & Golden Saturn',
+  description: 'Exact 1:1 replica of the MinGGo Cosmic Space TV display with golden Saturn, peeking red planet, purple neon glow title, and colorful balloon bouquets',
+  badge: 'EXACT REPLICA',
+  previewColor: '#8b5cf6',
   draw: (ctx, width, height, data, logoImg) => {
     const s = width / 1920;
 
+    // 1. Deep Cosmic Purple-Black Radial Background
     const bgGrad = ctx.createRadialGradient(
       width / 2,
-      height / 2,
-      120 * s,
+      height * 0.45,
+      80 * s,
       width / 2,
-      height / 2,
+      height * 0.45,
       1050 * s
     );
-    bgGrad.addColorStop(0, '#1e1b4b');
-    bgGrad.addColorStop(0.6, '#0f172a');
-    bgGrad.addColorStop(1, '#020617');
+    bgGrad.addColorStop(0, '#160833');
+    bgGrad.addColorStop(0.45, '#0d041e');
+    bgGrad.addColorStop(1, '#060210');
     ctx.fillStyle = bgGrad;
     ctx.fillRect(0, 0, width, height);
 
-    // Stars
+    // 2. Faint Sweeping Orbital Planetary Dashed Flight Tracks
     ctx.save();
-    for (let i = 0; i < 60; i++) {
-      const sx = (Math.sin(i * 14.1) * 0.5 + 0.5) * width;
-      const sy = (Math.cos(i * 23.3) * 0.5 + 0.5) * height;
-      const r = ((i % 3) + 2) * s;
-      ctx.fillStyle = i % 3 === 0 ? '#38bdf8' : i % 2 === 0 ? '#ffffff' : '#f43f5e';
+    ctx.strokeStyle = 'rgba(147, 51, 234, 0.22)';
+    ctx.lineWidth = 1.5 * s;
+    ctx.setLineDash([4 * s, 10 * s]);
+    ctx.beginPath();
+    ctx.ellipse(width * 0.48, height * 0.52, 850 * s, 420 * s, -Math.PI / 10, 0, Math.PI * 2);
+    ctx.stroke();
+
+    ctx.strokeStyle = 'rgba(56, 189, 248, 0.18)';
+    ctx.setLineDash([3 * s, 8 * s]);
+    ctx.beginPath();
+    ctx.ellipse(width * 0.55, height * 0.48, 960 * s, 480 * s, -Math.PI / 14, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.restore();
+
+    // 3. Twinkling Deep Space Starfield (Varied party colors: yellow, cyan, pink, orange, white)
+    ctx.save();
+    const starCoords = [
+      { x: 0.05, y: 0.12, c: '#fef08a', r: 1.8 }, { x: 0.12, y: 0.28, c: '#38bdf8', r: 2.2 },
+      { x: 0.18, y: 0.08, c: '#f43f5e', r: 1.5 }, { x: 0.26, y: 0.18, c: '#ffffff', r: 2.5 },
+      { x: 0.35, y: 0.09, c: '#fb923c', r: 2.0 }, { x: 0.42, y: 0.22, c: '#fef08a', r: 1.4 },
+      { x: 0.58, y: 0.14, c: '#38bdf8', r: 2.4 }, { x: 0.65, y: 0.07, c: '#ffffff', r: 1.8 },
+      { x: 0.72, y: 0.25, c: '#f43f5e', r: 2.0 }, { x: 0.82, y: 0.11, c: '#fef08a', r: 2.6 },
+      { x: 0.92, y: 0.19, c: '#38bdf8', r: 1.8 }, { x: 0.96, y: 0.06, c: '#ffffff', r: 2.2 },
+      { x: 0.04, y: 0.48, c: '#ffffff', r: 1.6 }, { x: 0.08, y: 0.72, c: '#fb923c', r: 2.0 },
+      { x: 0.14, y: 0.88, c: '#38bdf8', r: 2.5 }, { x: 0.25, y: 0.82, c: '#fef08a', r: 1.8 },
+      { x: 0.36, y: 0.92, c: '#f43f5e', r: 2.2 }, { x: 0.48, y: 0.85, c: '#ffffff', r: 2.0 },
+      { x: 0.62, y: 0.90, c: '#fef08a', r: 2.4 }, { x: 0.75, y: 0.86, c: '#38bdf8', r: 1.8 },
+      { x: 0.86, y: 0.94, c: '#fb923c', r: 2.2 }, { x: 0.94, y: 0.80, c: '#ffffff', r: 2.5 },
+      { x: 0.97, y: 0.55, c: '#f43f5e', r: 1.6 }, { x: 0.44, y: 0.68, c: '#38bdf8', r: 2.0 },
+      { x: 0.56, y: 0.65, c: '#fef08a', r: 1.8 },
+    ];
+    for (const st of starCoords) {
+      ctx.fillStyle = st.c;
       ctx.beginPath();
-      ctx.arc(sx, sy, r, 0, Math.PI * 2);
+      ctx.arc(st.x * width, st.y * height, st.r * s, 0, Math.PI * 2);
       ctx.fill();
     }
     ctx.restore();
 
-    const leftAnchorX = 240 * s;
-    const leftAnchorY = 1010 * s;
-    drawAuthenticBalloon(ctx, 240 * s, 320 * s, 126 * s, 152 * s, '#0284c7', '#7dd3fc', leftAnchorX, leftAnchorY, s);
-    drawAuthenticBalloon(ctx, 360 * s, 485 * s, 118 * s, 144 * s, '#6366f1', '#a5b4fc', leftAnchorX, leftAnchorY, s);
-    drawAuthenticBalloon(ctx, 195 * s, 630 * s, 124 * s, 150 * s, '#f97316', '#fed7aa', leftAnchorX, leftAnchorY, s);
-    drawAuthenticBalloon(ctx, 315 * s, 765 * s, 112 * s, 138 * s, '#06b6d4', '#a5f3fc', leftAnchorX, leftAnchorY, s);
+    // 4. Peeking Red Celestial Sphere (Behind the top-left yellow balloon)
+    ctx.save();
+    const redPX = 365 * s;
+    const redPY = 250 * s;
+    const redPR = 24 * s;
+    const redGrad = ctx.createRadialGradient(redPX - redPR * 0.35, redPY - redPR * 0.35, redPR * 0.1, redPX, redPY, redPR);
+    redGrad.addColorStop(0, '#fca5a5');
+    redGrad.addColorStop(0.4, '#ef4444');
+    redGrad.addColorStop(1, '#991b1b');
+    ctx.shadowColor = 'rgba(239, 68, 68, 0.45)';
+    ctx.shadowBlur = 14 * s;
+    ctx.fillStyle = redGrad;
+    ctx.beginPath();
+    ctx.arc(redPX, redPY, redPR, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
 
-    const rightAnchorX = 1660 * s;
-    const rightAnchorY = 1010 * s;
-    drawAuthenticBalloon(ctx, 1680 * s, 410 * s, 124 * s, 150 * s, '#f97316', '#fed7aa', rightAnchorX, rightAnchorY, s);
-    drawAuthenticBalloon(ctx, 1560 * s, 560 * s, 118 * s, 144 * s, '#06b6d4', '#a5f3fc', rightAnchorX, rightAnchorY, s);
-    drawAuthenticBalloon(ctx, 1710 * s, 710 * s, 122 * s, 148 * s, '#6366f1', '#a5b4fc', rightAnchorX, rightAnchorY, s);
-    drawAuthenticBalloon(ctx, 1570 * s, 830 * s, 108 * s, 134 * s, '#0284c7', '#7dd3fc', rightAnchorX, rightAnchorY, s);
+    // 5. Left Balloon Bouquet (Yellow, Cyan, Purple, Coral Pink)
+    const leftAnchorX = 320 * s;
+    const leftAnchorY = 980 * s;
+    // Top Yellow Balloon
+    drawAuthenticBalloon(ctx, 270 * s, 320 * s, 118 * s, 150 * s, '#eab308', '#fef9c3', leftAnchorX, leftAnchorY, s, -14);
+    // Middle Cyan Balloon
+    drawAuthenticBalloon(ctx, 410 * s, 470 * s, 112 * s, 144 * s, '#0ea5e9', '#e0f2fe', leftAnchorX, leftAnchorY, s, 10);
+    // Lower-Left Purple Balloon
+    drawAuthenticBalloon(ctx, 260 * s, 590 * s, 115 * s, 146 * s, '#8b5cf6', '#ede9fe', leftAnchorX, leftAnchorY, s, -15);
+    // Bottom Coral Pink Balloon
+    drawAuthenticBalloon(ctx, 365 * s, 710 * s, 104 * s, 134 * s, '#f472b6', '#ffe4e6', leftAnchorX, leftAnchorY, s, 6);
 
-    drawTvMinggoLogoPill(ctx, width / 2, 58 * s, s, '#38bdf8', 'rgba(56, 189, 248, 0.4)', logoImg);
+    // 6. Floating Golden Saturn with Tilted Cyan Rings (Above the right bouquet)
+    ctx.save();
+    const satX = 1520 * s;
+    const satY = 260 * s;
+    const satR = 40 * s;
+    ctx.translate(satX, satY);
+    ctx.rotate(-Math.PI / 7.5); // ~ -24 deg tilt
 
-    // "Welcome to"
+    // Saturn Rings: Back arc (behind planet)
+    ctx.save();
+    ctx.beginPath();
+    ctx.ellipse(0, 0, satR * 2.3, satR * 0.58, 0, Math.PI, 0);
+    ctx.strokeStyle = '#38bdf8';
+    ctx.lineWidth = 14 * s;
+    ctx.stroke();
+    ctx.strokeStyle = '#facc15';
+    ctx.lineWidth = 4 * s;
+    ctx.stroke();
+    ctx.restore();
+
+    // Saturn Planet Body Sphere
+    ctx.save();
+    const satGrad = ctx.createRadialGradient(-satR * 0.35, -satR * 0.35, satR * 0.1, 0, 0, satR);
+    satGrad.addColorStop(0, '#fef9c3');
+    satGrad.addColorStop(0.35, '#facc15');
+    satGrad.addColorStop(0.75, '#eab308');
+    satGrad.addColorStop(1, '#a16207');
+    ctx.shadowColor = 'rgba(250, 204, 21, 0.4)';
+    ctx.shadowBlur = 18 * s;
+    ctx.fillStyle = satGrad;
+    ctx.beginPath();
+    ctx.arc(0, 0, satR, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+
+    // Saturn Rings: Front arc (in front of planet)
+    ctx.save();
+    ctx.beginPath();
+    ctx.ellipse(0, 0, satR * 2.3, satR * 0.58, 0, 0, Math.PI);
+    ctx.strokeStyle = '#38bdf8';
+    ctx.lineWidth = 14 * s;
+    ctx.stroke();
+    ctx.strokeStyle = '#facc15';
+    ctx.lineWidth = 4 * s;
+    ctx.stroke();
+    ctx.restore();
+    ctx.restore();
+
+    // 7. Right Balloon Bouquet (Purple, Yellow, Cyan, Rose Pink)
+    const rightAnchorX = 1580 * s;
+    const rightAnchorY = 980 * s;
+    // Top Purple Balloon
+    drawAuthenticBalloon(ctx, 1620 * s, 390 * s, 115 * s, 148 * s, '#8b5cf6', '#ede9fe', rightAnchorX, rightAnchorY, s, -10);
+    // Middle-Left Yellow Balloon
+    drawAuthenticBalloon(ctx, 1505 * s, 525 * s, 112 * s, 144 * s, '#eab308', '#fef9c3', rightAnchorX, rightAnchorY, s, -12);
+    // Middle-Right Cyan Balloon
+    drawAuthenticBalloon(ctx, 1650 * s, 660 * s, 114 * s, 146 * s, '#0ea5e9', '#e0f2fe', rightAnchorX, rightAnchorY, s, 10);
+    // Bottom Rose Pink Balloon
+    drawAuthenticBalloon(ctx, 1515 * s, 765 * s, 104 * s, 134 * s, '#f472b6', '#ffe4e6', rightAnchorX, rightAnchorY, s, -8);
+
+    // 8. MinGGo Logo Pill at top with Intense Purple/Violet Neon Glow Aura
+    drawTvMinggoLogoPill(ctx, width / 2, 70 * s, s, '#c084fc', 'rgba(168, 85, 247, 0.85)', logoImg);
+
+    // 9. "WELCOME TO" in Electric Cyan / Aqua
+    const welcome = (data.titlePrefix || 'WELCOME TO').toUpperCase();
     ctx.save();
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.font = `bold ${Math.round(62 * s)}px "Outfit", "Fredoka", sans-serif`;
-    ctx.fillStyle = '#38bdf8';
-    ctx.fillText(data.titlePrefix || 'Welcome to', width / 2, 275 * s);
+    ctx.font = `900 ${Math.round(52 * s)}px "Outfit", "Fredoka", sans-serif`;
+    ctx.fillStyle = '#00e5ff';
+    ctx.shadowColor = 'rgba(0, 229, 255, 0.55)';
+    ctx.shadowBlur = 14 * s;
+    ctx.fillText(welcome, width / 2, 275 * s);
     ctx.restore();
 
-    // Hero Name in Electric Orange / Cyan Glow
+    // 10. Hero Name ("KAVYA's 7th") in Neon Glowing Purple & White Die-Cut Sticker
     const heroText = getHeroNameText(data);
     ctx.save();
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
 
-    let heroFontSize = 160 * s;
-    ctx.font = `900 ${heroFontSize}px "Outfit", "Fredoka", sans-serif`;
+    let heroFontSize = 162 * s;
+    ctx.font = `900 ${heroFontSize}px "Fredoka", "Baloo 2", sans-serif`;
     let textWidth = ctx.measureText(heroText).width;
     const maxTextWidth = 1320 * s;
     if (textWidth > maxTextWidth) {
       heroFontSize = Math.floor(heroFontSize * (maxTextWidth / textWidth));
-      ctx.font = `900 ${heroFontSize}px "Outfit", "Fredoka", sans-serif`;
+      ctx.font = `900 ${heroFontSize}px "Fredoka", "Baloo 2", sans-serif`;
+      textWidth = ctx.measureText(heroText).width;
     }
+    const heroY = 455 * s;
 
-    const heroY = 460 * s;
-
+    // Layer A: Intense Purple Neon Glow Aura
     ctx.save();
-    ctx.shadowColor = 'rgba(6, 182, 212, 0.8)';
-    ctx.shadowBlur = 32 * s;
-    ctx.strokeStyle = '#ffffff';
-    ctx.lineWidth = 32 * s;
+    ctx.shadowColor = 'rgba(192, 132, 252, 0.95)';
+    ctx.shadowBlur = 42 * s;
+    ctx.strokeStyle = '#c084fc';
+    ctx.lineWidth = 38 * s;
     ctx.lineJoin = 'round';
+    ctx.lineCap = 'round';
     ctx.strokeText(heroText, width / 2, heroY);
     ctx.restore();
 
-    ctx.fillStyle = '#ff7b00';
+    // Layer B: Crisp Heavy White Die-Cut Outline
+    ctx.strokeStyle = '#ffffff';
+    ctx.lineWidth = 32 * s;
+    ctx.lineJoin = 'round';
+    ctx.lineCap = 'round';
+    ctx.strokeText(heroText, width / 2, heroY);
+
+    // Layer C: Inner Luminous Lilac-to-Violet Fill Gradient
+    const nameGrad = ctx.createLinearGradient(0, heroY - 70 * s, 0, heroY + 60 * s);
+    nameGrad.addColorStop(0, '#ffffff');
+    nameGrad.addColorStop(0.35, '#e9d5ff');
+    nameGrad.addColorStop(0.70, '#c084fc');
+    nameGrad.addColorStop(1, '#9333ea');
+    ctx.fillStyle = nameGrad;
     ctx.fillText(heroText, width / 2, heroY);
+
+    // Layer D: Sparkle Stars on the letters
+    drawSparkle(ctx, width / 2 - textWidth * 0.32, heroY - 35 * s, 14 * s, '#ffffff');
+    drawSparkle(ctx, width / 2 + textWidth * 0.12, heroY - 45 * s, 16 * s, '#ffffff');
+    drawSparkle(ctx, width / 2 + textWidth * 0.38, heroY - 30 * s, 14 * s, '#fef08a');
     ctx.restore();
 
-    // "Birthday Party!"
+    // 11. "Birthday Party!" in Bubbly Golden Yellow
+    const bdayText = data.eventTitle || 'Birthday Party!';
     ctx.save();
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.font = `bold ${Math.round(86 * s)}px "Outfit", "Fredoka", sans-serif`;
-    ctx.strokeStyle = '#ffffff';
+    ctx.font = `900 ${Math.round(86 * s)}px "Fredoka", "Baloo 2", sans-serif`;
+
+    // Drop Shadow / Outline for high contrast on dark background
+    ctx.save();
+    ctx.shadowColor = 'rgba(0, 0, 0, 0.75)';
+    ctx.shadowBlur = 18 * s;
+    ctx.shadowOffsetY = 6 * s;
+    ctx.strokeStyle = '#070210';
     ctx.lineWidth = 14 * s;
-    ctx.strokeText(data.eventTitle || 'Birthday Party!', width / 2, 630 * s);
-    ctx.fillStyle = '#0284c7';
-    ctx.fillText(data.eventTitle || 'Birthday Party!', width / 2, 630 * s);
+    ctx.strokeText(bdayText, width / 2, 600 * s);
     ctx.restore();
 
-    // Space Zone Pill Badge
-    const zone = data.zoneText || 'Galactic Play Zone - Launch Pad 1';
-    ctx.save();
-    ctx.font = `bold ${Math.round(32 * s)}px "Outfit", sans-serif`;
-    const zoneW = ctx.measureText(zone).width + 96 * s;
-    const zoneH = 76 * s;
-    const zoneY = 765 * s;
+    ctx.fillStyle = '#facc15';
+    ctx.fillText(bdayText, width / 2, 600 * s);
+    ctx.restore();
 
+    // 12. Venue / Floor Pill ("2nd Floor, Play Zone") in Dark Pill with Cyan Border
+    const zone = data.zoneText || '2nd Floor, Play Zone';
+    ctx.save();
+    ctx.font = `bold ${Math.round(28 * s)}px "Outfit", sans-serif`;
+    const zoneW = ctx.measureText(zone).width + 92 * s;
+    const zoneH = 68 * s;
+    const zoneY = 720 * s;
+
+    // Glowing Cyan Border
+    ctx.save();
+    ctx.shadowColor = 'rgba(56, 189, 248, 0.45)';
+    ctx.shadowBlur = 18 * s;
     drawRoundedRect(
       ctx,
       width / 2 - zoneW / 2,
@@ -892,17 +1034,15 @@ const templateSpaceGalaxy: TvScreenTemplate = {
       zoneW,
       zoneH,
       zoneH / 2,
-      'rgba(15, 23, 42, 0.95)',
+      'rgba(10, 8, 30, 0.88)',
       '#38bdf8',
       3 * s
     );
     ctx.restore();
 
-    ctx.save();
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.font = `bold ${Math.round(32 * s)}px "Outfit", sans-serif`;
-    ctx.fillStyle = '#38bdf8';
+    ctx.fillStyle = '#ffffff';
     ctx.fillText(zone, width / 2, zoneY);
     ctx.restore();
   },
@@ -3091,13 +3231,1055 @@ const templateRockstarMusic: TvScreenTemplate = {
 };
 
 // ============================================================================
-// AGGREGATION & EXPORTS (20 TV DISPLAY TEMPLATES)
+// TEMPLATE 21: MINGGO APOLLO ROCKET LAUNCH & MISSION CONTROL
+// ============================================================================
+const templateSpaceRocket: TvScreenTemplate = {
+  id: 'tv-space-rocket',
+  name: 'MinGGo Apollo Rocket Launch & Mission Control',
+  theme: 'NASA Apollo & Space Rocket Launch',
+  description: 'Cape Canaveral countdown telemetry, ascending space rocket with blazing thruster flame plume, launch smoke clouds, and astronaut bold typography',
+  badge: 'ROCKET LAUNCH',
+  previewColor: '#f97316',
+  draw: (ctx, width, height, data, logoImg) => {
+    const s = width / 1920;
+
+    // Launchpad Atmospheric Gradient: Deep Cosmos into Launch Navy
+    const bgGrad = ctx.createLinearGradient(0, 0, 0, height);
+    bgGrad.addColorStop(0, '#030712');
+    bgGrad.addColorStop(0.4, '#0b192c');
+    bgGrad.addColorStop(0.85, '#1e293b');
+    bgGrad.addColorStop(1, '#0f172a');
+    ctx.fillStyle = bgGrad;
+    ctx.fillRect(0, 0, width, height);
+
+    // Starfield in upper cosmos
+    ctx.save();
+    for (let i = 0; i < 45; i++) {
+      const sx = (Math.sin(i * 19.3) * 0.5 + 0.5) * width;
+      const sy = (Math.cos(i * 31.7) * 0.5 + 0.5) * (height * 0.65);
+      const sr = ((i % 3) + 1.5) * s;
+      ctx.fillStyle = i % 3 === 0 ? '#facc15' : i % 2 === 0 ? '#ffffff' : '#38bdf8';
+      ctx.beginPath();
+      ctx.arc(sx, sy, sr, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.restore();
+
+    // Mission Control Telemetry Header Banner
+    ctx.save();
+    ctx.font = `bold ${Math.round(18 * s)}px "Outfit", monospace`;
+    ctx.fillStyle = 'rgba(250, 204, 21, 0.45)';
+    ctx.textAlign = 'center';
+    ctx.fillText('MISSION LAUNCH // T-MINUS 00:00:00 // PROPULSION NOMINAL // ALL SYSTEMS GO', width / 2, 32 * s);
+    ctx.restore();
+
+    // Ascending Space Rocket with Thruster Flame Trail (background art)
+    function drawAscendingRocket(rx: number, ry: number, scale: number, angleDeg: number) {
+      ctx.save();
+      ctx.translate(rx, ry);
+      ctx.rotate((angleDeg * Math.PI) / 180);
+
+      // 1. Fiery Thruster Exhaust Plume
+      const flameH = 220 * s * scale;
+      const flameW = 48 * s * scale;
+      const flameGrad = ctx.createLinearGradient(0, 40 * s * scale, 0, 40 * s * scale + flameH);
+      flameGrad.addColorStop(0, '#ffffff');
+      flameGrad.addColorStop(0.2, '#fef08a');
+      flameGrad.addColorStop(0.55, '#f97316');
+      flameGrad.addColorStop(0.85, '#ef4444');
+      flameGrad.addColorStop(1, 'rgba(239, 68, 68, 0)');
+
+      ctx.save();
+      ctx.shadowColor = '#f97316';
+      ctx.shadowBlur = 24 * s;
+      ctx.beginPath();
+      ctx.moveTo(-flameW * 0.45, 40 * s * scale);
+      ctx.quadraticCurveTo(-flameW * 0.65, 40 * s * scale + flameH * 0.45, 0, 40 * s * scale + flameH);
+      ctx.quadraticCurveTo(flameW * 0.65, 40 * s * scale + flameH * 0.45, flameW * 0.45, 40 * s * scale);
+      ctx.closePath();
+      ctx.fillStyle = flameGrad;
+      ctx.fill();
+      ctx.restore();
+
+      // 2. Rocket Fuselage (White aerospace alloy)
+      const bodyW = 34 * s * scale;
+      const bodyH = 110 * s * scale;
+      ctx.fillStyle = '#f8fafc';
+      drawRoundedRect(ctx, -bodyW / 2, -bodyH / 2, bodyW, bodyH, 8 * s * scale, '#f8fafc');
+
+      // 3. Aerodynamic Nose Cone
+      ctx.beginPath();
+      ctx.moveTo(-bodyW / 2, -bodyH / 2);
+      ctx.lineTo(0, -bodyH / 2 - 42 * s * scale);
+      ctx.lineTo(bodyW / 2, -bodyH / 2);
+      ctx.closePath();
+      ctx.fillStyle = '#ef4444';
+      ctx.fill();
+
+      // 4. Cockpit Porthole
+      ctx.beginPath();
+      ctx.arc(0, -bodyH * 0.2, 9 * s * scale, 0, Math.PI * 2);
+      ctx.fillStyle = '#38bdf8';
+      ctx.fill();
+      ctx.strokeStyle = '#0284c7';
+      ctx.lineWidth = 2.5 * s * scale;
+      ctx.stroke();
+
+      // 5. Delta Stabilizer Fins
+      ctx.fillStyle = '#ef4444';
+      ctx.beginPath();
+      ctx.moveTo(-bodyW / 2, bodyH * 0.2);
+      ctx.lineTo(-bodyW / 2 - 22 * s * scale, bodyH * 0.5);
+      ctx.lineTo(-bodyW / 2, bodyH * 0.45);
+      ctx.closePath();
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.moveTo(bodyW / 2, bodyH * 0.2);
+      ctx.lineTo(bodyW / 2 + 22 * s * scale, bodyH * 0.5);
+      ctx.lineTo(bodyW / 2, bodyH * 0.45);
+      ctx.closePath();
+      ctx.fill();
+
+      ctx.restore();
+    }
+
+    // Two soaring rockets in the outer wings
+    drawAscendingRocket(140 * s, 480 * s, 0.95, -12);
+    drawAscendingRocket(1780 * s, 480 * s, 0.95, 12);
+
+    // Billowy launchpad cloud puffs at bottom
+    ctx.save();
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.08)';
+    ctx.beginPath();
+    ctx.arc(220 * s, height + 40 * s, 140 * s, 0, Math.PI * 2);
+    ctx.arc(380 * s, height + 60 * s, 160 * s, 0, Math.PI * 2);
+    ctx.arc(1540 * s, height + 60 * s, 160 * s, 0, Math.PI * 2);
+    ctx.arc(1700 * s, height + 40 * s, 140 * s, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+
+    // Left Balloon Bouquet (Rocket Red, Thruster Orange, White, Navy)
+    const leftAnchorX = 240 * s;
+    const leftAnchorY = 1010 * s;
+    drawAuthenticBalloon(ctx, 240 * s, 320 * s, 126 * s, 156 * s, '#ef4444', '#fecdd3', leftAnchorX, leftAnchorY, s, -6);
+    drawAuthenticBalloon(ctx, 360 * s, 485 * s, 118 * s, 148 * s, '#f97316', '#fed7aa', leftAnchorX, leftAnchorY, s, 7);
+    drawAuthenticBalloon(ctx, 195 * s, 630 * s, 124 * s, 154 * s, '#f8fafc', '#ffffff', leftAnchorX, leftAnchorY, s, -8);
+    drawAuthenticBalloon(ctx, 315 * s, 765 * s, 112 * s, 140 * s, '#1d4ed8', '#93c5fd', leftAnchorX, leftAnchorY, s, 5);
+
+    // Right Balloon Bouquet (Thruster Orange, White, Rocket Red, Launch Gold)
+    const rightAnchorX = 1660 * s;
+    const rightAnchorY = 1010 * s;
+    drawAuthenticBalloon(ctx, 1680 * s, 410 * s, 124 * s, 156 * s, '#f97316', '#fed7aa', rightAnchorX, rightAnchorY, s, 7);
+    drawAuthenticBalloon(ctx, 1560 * s, 560 * s, 118 * s, 148 * s, '#f8fafc', '#ffffff', rightAnchorX, rightAnchorY, s, -7);
+    drawAuthenticBalloon(ctx, 1710 * s, 710 * s, 122 * s, 152 * s, '#ef4444', '#fecdd3', rightAnchorX, rightAnchorY, s, 8);
+    drawAuthenticBalloon(ctx, 1570 * s, 830 * s, 108 * s, 136 * s, '#facc15', '#fef08a', rightAnchorX, rightAnchorY, s, -5);
+
+    drawTvMinggoLogoPill(ctx, width / 2, 58 * s, s, '#f97316', 'rgba(249, 115, 22, 0.45)', logoImg);
+
+    // "T-MINUS BLAST OFF FOR"
+    ctx.save();
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.font = `900 ${Math.round(52 * s)}px "Outfit", sans-serif`;
+    ctx.fillStyle = '#facc15';
+    ctx.shadowColor = 'rgba(250, 204, 21, 0.5)';
+    ctx.shadowBlur = 16 * s;
+    ctx.fillText((data.titlePrefix || 'T-MINUS BLAST OFF FOR').toUpperCase(), width / 2, 275 * s);
+    ctx.restore();
+
+    // Hero Name in Slanted Aerospace Fiery Gradient
+    const heroText = getHeroNameText(data);
+    ctx.save();
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    let heroFontSize = 162 * s;
+    ctx.font = `italic 900 ${heroFontSize}px "Fredoka", "Outfit", sans-serif`;
+    let textWidth = ctx.measureText(heroText).width;
+    const maxTextWidth = 1320 * s;
+    if (textWidth > maxTextWidth) {
+      heroFontSize = Math.floor(heroFontSize * (maxTextWidth / textWidth));
+      ctx.font = `italic 900 ${heroFontSize}px "Fredoka", "Outfit", sans-serif`;
+    }
+    const heroY = 460 * s;
+
+    // Heavy white outline with fire shadow
+    ctx.save();
+    ctx.shadowColor = 'rgba(249, 115, 22, 0.65)';
+    ctx.shadowBlur = 34 * s;
+    ctx.shadowOffsetY = 12 * s;
+    ctx.strokeStyle = '#ffffff';
+    ctx.lineWidth = 36 * s;
+    ctx.lineJoin = 'round';
+    ctx.strokeText(heroText, width / 2, heroY);
+    ctx.restore();
+
+    const fireGrad = ctx.createLinearGradient(0, heroY - 70 * s, 0, heroY + 60 * s);
+    fireGrad.addColorStop(0, '#fef08a');
+    fireGrad.addColorStop(0.35, '#f97316');
+    fireGrad.addColorStop(1, '#ef4444');
+    ctx.fillStyle = fireGrad;
+    ctx.fillText(heroText, width / 2, heroY);
+    ctx.restore();
+
+    // "Birthday Party!"
+    ctx.save();
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.font = `900 ${Math.round(86 * s)}px "Outfit", sans-serif`;
+    ctx.strokeStyle = '#030712';
+    ctx.lineWidth = 14 * s;
+    ctx.strokeText(data.eventTitle || 'Birthday Party!', width / 2, 630 * s);
+    ctx.fillStyle = '#fbbf24';
+    ctx.fillText(data.eventTitle || 'Birthday Party!', width / 2, 630 * s);
+    ctx.restore();
+
+    // Mission Control Zone Pill
+    const zone = data.zoneText || 'Mission Control & Rocket Launch Pad';
+    ctx.save();
+    ctx.font = `900 ${Math.round(30 * s)}px "Outfit", sans-serif`;
+    const zoneW = ctx.measureText(zone).width + 96 * s;
+    const zoneH = 76 * s;
+    const zoneY = 765 * s;
+
+    drawRoundedRect(
+      ctx,
+      width / 2 - zoneW / 2,
+      zoneY - zoneH / 2,
+      zoneW,
+      zoneH,
+      zoneH / 2,
+      '#0b192c',
+      '#f97316',
+      3 * s
+    );
+    ctx.restore();
+
+    ctx.save();
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.font = `900 ${Math.round(30 * s)}px "Outfit", sans-serif`;
+    ctx.fillStyle = '#fde047';
+    ctx.fillText(zone, width / 2, zoneY);
+    ctx.restore();
+  },
+};
+
+// ============================================================================
+// TEMPLATE 22: MINGGO SOLAR SYSTEM & PLANETARY ORBIT
+// ============================================================================
+const templateSpaceSolarSystem: TvScreenTemplate = {
+  id: 'tv-space-solar-system',
+  name: 'MinGGo Solar System & Planetary Orbit',
+  theme: 'Solar System, Saturn Rings & Planets',
+  description: 'Deep cosmic twilight void, majestic Saturn with glowing concentric rings, orbiting Mars, Jupiter, Earth, and celestial orbit typography',
+  badge: 'SOLAR SYSTEM',
+  previewColor: '#8b5cf6',
+  draw: (ctx, width, height, data, logoImg) => {
+    const s = width / 1920;
+
+    // Deep Cosmic Twilight Purple
+    const bgGrad = ctx.createRadialGradient(
+      width / 2, height / 2, 80 * s,
+      width / 2, height / 2, 1050 * s
+    );
+    bgGrad.addColorStop(0, '#1e0836');
+    bgGrad.addColorStop(0.55, '#0f051d');
+    bgGrad.addColorStop(1, '#05020c');
+    ctx.fillStyle = bgGrad;
+    ctx.fillRect(0, 0, width, height);
+
+    // Starfield & Cosmic Dust
+    ctx.save();
+    for (let i = 0; i < 50; i++) {
+      const sx = (Math.sin(i * 17.7) * 0.5 + 0.5) * width;
+      const sy = (Math.cos(i * 29.3) * 0.5 + 0.5) * height;
+      const sr = ((i % 3) + 1.2) * s;
+      ctx.fillStyle = i % 4 === 0 ? '#facc15' : i % 3 === 0 ? '#38bdf8' : i % 2 === 0 ? '#ffffff' : '#f472b6';
+      ctx.beginPath();
+      ctx.arc(sx, sy, sr, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.restore();
+
+    // Faint Planetary Orbit Paths (dashed elliptical arcs)
+    ctx.save();
+    ctx.strokeStyle = 'rgba(147, 51, 234, 0.25)';
+    ctx.lineWidth = 1.5 * s;
+    ctx.setLineDash([8 * s, 12 * s]);
+    ctx.beginPath();
+    ctx.ellipse(width / 2, height / 2, 780 * s, 380 * s, -Math.PI / 12, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.ellipse(width / 2, height / 2, 920 * s, 460 * s, -Math.PI / 12, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.restore();
+
+    // Majestic Saturn with Concentric Rings (Top Right)
+    ctx.save();
+    const satX = width * 0.82;
+    const satY = height * 0.22;
+    const satR = 54 * s;
+    ctx.translate(satX, satY);
+    ctx.rotate(-Math.PI / 7);
+
+    // Outer Glow Ring
+    ctx.strokeStyle = 'rgba(250, 204, 21, 0.45)';
+    ctx.lineWidth = 14 * s;
+    ctx.beginPath();
+    ctx.ellipse(0, 0, satR * 2.2, satR * 0.55, 0, 0, Math.PI * 2);
+    ctx.stroke();
+
+    // Inner Shimmer Ring
+    ctx.strokeStyle = 'rgba(56, 189, 248, 0.35)';
+    ctx.lineWidth = 8 * s;
+    ctx.beginPath();
+    ctx.ellipse(0, 0, satR * 1.65, satR * 0.42, 0, 0, Math.PI * 2);
+    ctx.stroke();
+
+    // Planet Body Sphere
+    const satGrad = ctx.createRadialGradient(-satR * 0.3, -satR * 0.3, satR * 0.1, 0, 0, satR);
+    satGrad.addColorStop(0, '#fef08a');
+    satGrad.addColorStop(0.5, '#eab308');
+    satGrad.addColorStop(1, '#a16207');
+    ctx.fillStyle = satGrad;
+    ctx.beginPath();
+    ctx.arc(0, 0, satR, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Front Ring Overlap
+    ctx.strokeStyle = 'rgba(250, 204, 21, 0.65)';
+    ctx.lineWidth = 14 * s;
+    ctx.beginPath();
+    ctx.ellipse(0, 0, satR * 2.2, satR * 0.55, 0, 0, Math.PI);
+    ctx.stroke();
+    ctx.restore();
+
+    // Orbiting Mars (Red Planet on Top Left)
+    ctx.save();
+    const marsX = width * 0.18;
+    const marsY = height * 0.22;
+    const marsR = 36 * s;
+    const marsGrad = ctx.createRadialGradient(marsX - 10 * s, marsY - 10 * s, 6 * s, marsX, marsY, marsR);
+    marsGrad.addColorStop(0, '#fca5a5');
+    marsGrad.addColorStop(0.6, '#ef4444');
+    marsGrad.addColorStop(1, '#991b1b');
+    ctx.fillStyle = marsGrad;
+    ctx.beginPath();
+    ctx.arc(marsX, marsY, marsR, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+
+    // Orbiting Earth (Blue Marble on Bottom Right)
+    ctx.save();
+    const earthX = width * 0.84;
+    const earthY = height * 0.82;
+    const earthR = 32 * s;
+    ctx.fillStyle = '#0284c7';
+    ctx.beginPath();
+    ctx.arc(earthX, earthY, earthR, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = '#22c55e';
+    ctx.beginPath();
+    ctx.arc(earthX - 6 * s, earthY - 4 * s, 14 * s, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+
+    // Left Balloon Bouquet (Saturn Gold, Planetary Teal, Cosmic Violet, Coral Mars)
+    const leftAnchorX = 240 * s;
+    const leftAnchorY = 1010 * s;
+    drawAuthenticBalloon(ctx, 240 * s, 320 * s, 126 * s, 156 * s, '#facc15', '#fef08a', leftAnchorX, leftAnchorY, s, -6);
+    drawAuthenticBalloon(ctx, 360 * s, 485 * s, 118 * s, 148 * s, '#06b6d4', '#67e8f9', leftAnchorX, leftAnchorY, s, 7);
+    drawAuthenticBalloon(ctx, 195 * s, 630 * s, 124 * s, 154 * s, '#8b5cf6', '#ede9fe', leftAnchorX, leftAnchorY, s, -8);
+    drawAuthenticBalloon(ctx, 315 * s, 765 * s, 112 * s, 140 * s, '#fb7185', '#ffe4e6', leftAnchorX, leftAnchorY, s, 5);
+
+    // Right Balloon Bouquet (Cosmic Violet, Saturn Gold, Planetary Teal, Nebula Pink)
+    const rightAnchorX = 1660 * s;
+    const rightAnchorY = 1010 * s;
+    drawAuthenticBalloon(ctx, 1680 * s, 410 * s, 124 * s, 156 * s, '#8b5cf6', '#ede9fe', rightAnchorX, rightAnchorY, s, 7);
+    drawAuthenticBalloon(ctx, 1560 * s, 560 * s, 118 * s, 148 * s, '#facc15', '#fef08a', rightAnchorX, rightAnchorY, s, -7);
+    drawAuthenticBalloon(ctx, 1710 * s, 710 * s, 122 * s, 152 * s, '#06b6d4', '#67e8f9', rightAnchorX, rightAnchorY, s, 8);
+    drawAuthenticBalloon(ctx, 1570 * s, 830 * s, 108 * s, 136 * s, '#ec4899', '#fbcfe8', rightAnchorX, rightAnchorY, s, -5);
+
+    drawTvMinggoLogoPill(ctx, width / 2, 58 * s, s, '#8b5cf6', 'rgba(139, 92, 246, 0.45)', logoImg);
+
+    // "INTERPLANETARY EXPEDITION FOR"
+    ctx.save();
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.font = `bold ${Math.round(54 * s)}px "Outfit", sans-serif`;
+    ctx.fillStyle = '#67e8f9';
+    ctx.shadowColor = 'rgba(6, 182, 212, 0.5)';
+    ctx.shadowBlur = 14 * s;
+    ctx.fillText((data.titlePrefix || 'INTERPLANETARY EXPEDITION FOR').toUpperCase(), width / 2, 275 * s);
+    ctx.restore();
+
+    // Hero Name in Dimensional Starlight Cosmic Violet
+    const heroText = getHeroNameText(data);
+    ctx.save();
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    let heroFontSize = 162 * s;
+    ctx.font = `900 ${heroFontSize}px "Fredoka", "Outfit", sans-serif`;
+    let textWidth = ctx.measureText(heroText).width;
+    const maxTextWidth = 1320 * s;
+    if (textWidth > maxTextWidth) {
+      heroFontSize = Math.floor(heroFontSize * (maxTextWidth / textWidth));
+      ctx.font = `900 ${heroFontSize}px "Fredoka", "Outfit", sans-serif`;
+    }
+    const heroY = 460 * s;
+
+    // Outer glow outline
+    ctx.save();
+    ctx.shadowColor = 'rgba(168, 85, 247, 0.65)';
+    ctx.shadowBlur = 34 * s;
+    ctx.strokeStyle = '#ffffff';
+    ctx.lineWidth = 36 * s;
+    ctx.lineJoin = 'round';
+    ctx.strokeText(heroText, width / 2, heroY);
+    ctx.restore();
+
+    const planetGrad = ctx.createLinearGradient(0, heroY - 70 * s, 0, heroY + 60 * s);
+    planetGrad.addColorStop(0, '#fdf4ff');
+    planetGrad.addColorStop(0.4, '#c084fc');
+    planetGrad.addColorStop(1, '#7c3aed');
+    ctx.fillStyle = planetGrad;
+    ctx.fillText(heroText, width / 2, heroY);
+    ctx.restore();
+
+    // Sparkles
+    drawSparkle(ctx, width / 2 - 290 * s, heroY - 50 * s, 18 * s, '#facc15');
+    drawSparkle(ctx, width / 2 + 290 * s, heroY - 45 * s, 16 * s, '#67e8f9');
+
+    // "Birthday Party!"
+    ctx.save();
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.font = `bold ${Math.round(86 * s)}px "Fredoka", "Outfit", sans-serif`;
+    ctx.strokeStyle = '#05020c';
+    ctx.lineWidth = 14 * s;
+    ctx.strokeText(data.eventTitle || 'Birthday Party!', width / 2, 630 * s);
+    ctx.fillStyle = '#fde047';
+    ctx.fillText(data.eventTitle || 'Birthday Party!', width / 2, 630 * s);
+    ctx.restore();
+
+    // Cosmic Planetarium Zone Pill
+    const zone = data.zoneText || 'Cosmic Planetarium & Orbit Play Zone';
+    ctx.save();
+    ctx.font = `bold ${Math.round(32 * s)}px "Outfit", sans-serif`;
+    const zoneW = ctx.measureText(zone).width + 96 * s;
+    const zoneH = 76 * s;
+    const zoneY = 765 * s;
+
+    drawRoundedRect(
+      ctx,
+      width / 2 - zoneW / 2,
+      zoneY - zoneH / 2,
+      zoneW,
+      zoneH,
+      zoneH / 2,
+      '#1e0836',
+      '#38bdf8',
+      3 * s
+    );
+    ctx.restore();
+
+    ctx.save();
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.font = `bold ${Math.round(32 * s)}px "Outfit", sans-serif`;
+    ctx.fillStyle = '#a5f3fc';
+    ctx.fillText(zone, width / 2, zoneY);
+    ctx.restore();
+  },
+};
+
+// ============================================================================
+// TEMPLATE 23: MINGGO INTERGALACTIC WARP SPEED & HYPERDRIVE
+// ============================================================================
+const templateSpaceWarpSpeed: TvScreenTemplate = {
+  id: 'tv-space-warp-speed',
+  name: 'MinGGo Intergalactic Warp Speed & Hyperdrive',
+  theme: 'Warp Speed Hyperdrive & Alien Nebula',
+  description: 'Radial hyperspace starburst lightspeed trails, glowing magenta & cyan interstellar nebula clouds, starship HUD telemetry, and high-voltage chrome lettering',
+  badge: 'WARP SPEED',
+  previewColor: '#00f2fe',
+  draw: (ctx, width, height, data, logoImg) => {
+    const s = width / 1920;
+
+    // Deep Hyperspace Void
+    ctx.fillStyle = '#020617';
+    ctx.fillRect(0, 0, width, height);
+
+    // Glowing Interstellar Nebula Clouds
+    // Magenta Nebula (Left)
+    const neb1 = ctx.createRadialGradient(width * 0.25, height * 0.45, 40 * s, width * 0.25, height * 0.45, 420 * s);
+    neb1.addColorStop(0, 'rgba(217, 70, 239, 0.22)');
+    neb1.addColorStop(0.6, 'rgba(168, 85, 247, 0.10)');
+    neb1.addColorStop(1, 'rgba(2, 6, 23, 0)');
+    ctx.fillStyle = neb1;
+    ctx.fillRect(0, 0, width, height);
+
+    // Cyan Nebula (Right)
+    const neb2 = ctx.createRadialGradient(width * 0.75, height * 0.55, 40 * s, width * 0.75, height * 0.55, 420 * s);
+    neb2.addColorStop(0, 'rgba(6, 182, 212, 0.22)');
+    neb2.addColorStop(0.6, 'rgba(56, 189, 248, 0.10)');
+    neb2.addColorStop(1, 'rgba(2, 6, 23, 0)');
+    ctx.fillStyle = neb2;
+    ctx.fillRect(0, 0, width, height);
+
+    // 80 Radial Warp Speed Light Trails (Shooting outward from center)
+    ctx.save();
+    const centerX = width / 2;
+    const centerY = height / 2;
+    for (let i = 0; i < 80; i++) {
+      const angle = (i * Math.PI * 2) / 80 + ((i % 5) * 0.05);
+      const innerR = (160 + ((i * 17) % 80)) * s;
+      const outerR = (480 + ((i * 29) % 520)) * s;
+
+      const x1 = centerX + Math.cos(angle) * innerR;
+      const y1 = centerY + Math.sin(angle) * innerR;
+      const x2 = centerX + Math.cos(angle) * outerR;
+      const y2 = centerY + Math.sin(angle) * outerR;
+
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+      ctx.lineTo(x2, y2);
+      ctx.strokeStyle = i % 3 === 0 ? 'rgba(56, 189, 248, 0.55)' : i % 2 === 0 ? 'rgba(255, 255, 255, 0.75)' : 'rgba(236, 72, 153, 0.45)';
+      ctx.lineWidth = ((i % 3) + 1.2) * s;
+      ctx.stroke();
+    }
+    ctx.restore();
+
+    // Sci-Fi Starship HUD Telemetry Corner Brackets
+    ctx.save();
+    ctx.strokeStyle = '#00f2fe';
+    ctx.lineWidth = 2 * s;
+    const pad = 36 * s;
+    const bLen = 60 * s;
+    // Top-Left
+    ctx.beginPath();
+    ctx.moveTo(pad, pad + bLen);
+    ctx.lineTo(pad, pad);
+    ctx.lineTo(pad + bLen, pad);
+    ctx.stroke();
+    // Top-Right
+    ctx.beginPath();
+    ctx.moveTo(width - pad - bLen, pad);
+    ctx.lineTo(width - pad, pad);
+    ctx.lineTo(width - pad, pad + bLen);
+    ctx.stroke();
+    // Bottom-Left
+    ctx.beginPath();
+    ctx.moveTo(pad, height - pad - bLen);
+    ctx.lineTo(pad, height - pad);
+    ctx.lineTo(pad + bLen, height - pad);
+    ctx.stroke();
+    // Bottom-Right
+    ctx.beginPath();
+    ctx.moveTo(width - pad - bLen, height - pad);
+    ctx.lineTo(width - pad, height - pad);
+    ctx.lineTo(width - pad, height - pad - bLen);
+    ctx.stroke();
+
+    ctx.font = `bold ${Math.round(16 * s)}px "Outfit", monospace`;
+    ctx.fillStyle = 'rgba(0, 242, 254, 0.65)';
+    ctx.fillText('SECTOR 07 // HYPERDRIVE VELOCITY // WARP 9.8', pad + 10 * s, pad + 24 * s);
+    ctx.restore();
+
+    // Left Balloon Bouquet (Hyperspace Cyan, Nebula Magenta, Deep Violet, Starlight Silver)
+    const leftAnchorX = 240 * s;
+    const leftAnchorY = 1010 * s;
+    drawAuthenticBalloon(ctx, 240 * s, 320 * s, 126 * s, 156 * s, '#00d2ff', '#a5f3fc', leftAnchorX, leftAnchorY, s, -6);
+    drawAuthenticBalloon(ctx, 360 * s, 485 * s, 118 * s, 148 * s, '#d946ef', '#f5d0fe', leftAnchorX, leftAnchorY, s, 7);
+    drawAuthenticBalloon(ctx, 195 * s, 630 * s, 124 * s, 154 * s, '#7c3aed', '#c4b5fd', leftAnchorX, leftAnchorY, s, -8);
+    drawAuthenticBalloon(ctx, 315 * s, 765 * s, 112 * s, 140 * s, '#e2e8f0', '#ffffff', leftAnchorX, leftAnchorY, s, 5);
+
+    // Right Balloon Bouquet (Nebula Magenta, Hyperspace Cyan, Deep Violet, Hot Pink)
+    const rightAnchorX = 1660 * s;
+    const rightAnchorY = 1010 * s;
+    drawAuthenticBalloon(ctx, 1680 * s, 410 * s, 124 * s, 156 * s, '#d946ef', '#f5d0fe', rightAnchorX, rightAnchorY, s, 7);
+    drawAuthenticBalloon(ctx, 1560 * s, 560 * s, 118 * s, 148 * s, '#00d2ff', '#a5f3fc', rightAnchorX, rightAnchorY, s, -7);
+    drawAuthenticBalloon(ctx, 1710 * s, 710 * s, 122 * s, 152 * s, '#7c3aed', '#c4b5fd', rightAnchorX, rightAnchorY, s, 8);
+    drawAuthenticBalloon(ctx, 1570 * s, 830 * s, 108 * s, 136 * s, '#f43f5e', '#ffe4e6', rightAnchorX, rightAnchorY, s, -5);
+
+    drawTvMinggoLogoPill(ctx, width / 2, 58 * s, s, '#00f2fe', 'rgba(0, 242, 254, 0.55)', logoImg);
+
+    // "ENGAGING HYPERDRIVE WARP SPEED FOR"
+    ctx.save();
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.font = `bold ${Math.round(50 * s)}px "Outfit", monospace`;
+    ctx.fillStyle = '#38bdf8';
+    ctx.shadowColor = '#00f2fe';
+    ctx.shadowBlur = 18 * s;
+    ctx.fillText((data.titlePrefix || 'ENGAGING HYPERDRIVE WARP SPEED FOR').toUpperCase(), width / 2, 275 * s);
+    ctx.restore();
+
+    // Hero Name in Futuristic Sci-Fi Chrome Hologram
+    const heroText = getHeroNameText(data);
+    ctx.save();
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    let heroFontSize = 162 * s;
+    ctx.font = `italic 900 ${heroFontSize}px "Fredoka", "Outfit", sans-serif`;
+    let textWidth = ctx.measureText(heroText).width;
+    const maxTextWidth = 1320 * s;
+    if (textWidth > maxTextWidth) {
+      heroFontSize = Math.floor(heroFontSize * (maxTextWidth / textWidth));
+      ctx.font = `italic 900 ${heroFontSize}px "Fredoka", "Outfit", sans-serif`;
+    }
+    const heroY = 460 * s;
+
+    // Dual Chromatic Aberration Outer Glow
+    ctx.save();
+    ctx.shadowColor = '#00f2fe';
+    ctx.shadowBlur = 36 * s;
+    ctx.strokeStyle = '#d946ef';
+    ctx.lineWidth = 36 * s;
+    ctx.lineJoin = 'round';
+    ctx.strokeText(heroText, width / 2, heroY);
+    ctx.restore();
+
+    ctx.strokeStyle = '#ffffff';
+    ctx.lineWidth = 26 * s;
+    ctx.strokeText(heroText, width / 2, heroY);
+
+    const chromeGrad = ctx.createLinearGradient(0, heroY - 70 * s, 0, heroY + 60 * s);
+    chromeGrad.addColorStop(0, '#ffffff');
+    chromeGrad.addColorStop(0.35, '#a5f3fc');
+    chromeGrad.addColorStop(1, '#00f2fe');
+    ctx.fillStyle = chromeGrad;
+    ctx.fillText(heroText, width / 2, heroY);
+    ctx.restore();
+
+    // "Birthday Party!"
+    ctx.save();
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.font = `italic 900 ${Math.round(86 * s)}px "Fredoka", "Outfit", sans-serif`;
+    ctx.shadowColor = '#f43f5e';
+    ctx.shadowBlur = 22 * s;
+    ctx.fillStyle = '#f472b6';
+    ctx.fillText(data.eventTitle || 'Birthday Party!', width / 2, 630 * s);
+    ctx.restore();
+
+    // Starship Bridge Zone Pill
+    const zone = data.zoneText || 'Starship Bridge & Hyper-Jump Arena';
+    ctx.save();
+    ctx.font = `900 ${Math.round(30 * s)}px "Outfit", monospace`;
+    const zoneW = ctx.measureText(zone).width + 96 * s;
+    const zoneH = 76 * s;
+    const zoneY = 765 * s;
+
+    drawRoundedRect(
+      ctx,
+      width / 2 - zoneW / 2,
+      zoneY - zoneH / 2,
+      zoneW,
+      zoneH,
+      zoneH / 2,
+      '#030712',
+      '#00f2fe',
+      3 * s
+    );
+    ctx.restore();
+
+    ctx.save();
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.font = `900 ${Math.round(30 * s)}px "Outfit", monospace`;
+    ctx.fillStyle = '#67e8f9';
+    ctx.fillText(zone, width / 2, zoneY);
+    ctx.restore();
+  },
+};
+
+// Cache for 3D Cinematic Space Astronaut template background
+let spaceAstronautImage: HTMLImageElement | null = null;
+function getSpaceAstronautImage(): HTMLImageElement | null {
+  if (typeof window === 'undefined') return null;
+  if (!spaceAstronautImage) {
+    spaceAstronautImage = new Image();
+    spaceAstronautImage.crossOrigin = 'anonymous';
+    spaceAstronautImage.src = '/templates/space-astronaut-cinematic.jpg';
+  }
+  return spaceAstronautImage;
+}
+
+// ============================================================================
+// TEMPLATE 24: MINGGO 3D SPACE ASTRONAUT & LUNAR ODYSSEY (EXACT 1:1 REPLICA)
+// ============================================================================
+const templateSpaceAstronautLunar: TvScreenTemplate = {
+  id: 'tv-space-astronaut-lunar',
+  name: 'MinGGo 3D Space Astronaut & Lunar Odyssey',
+  theme: '3D Cinematic Astronaut & Moon Landing',
+  description: 'Photorealistic 3D cinematic space landscape with cute astronaut holding birthday flag, gift box, Earth & Saturn, purple cosmic balloons with gold stars, and neon marquee typography',
+  badge: '3D CINEMATIC',
+  previewColor: '#7c3aed',
+  draw: (ctx, width, height, data, logoImg) => {
+    const s = width / 1920;
+    const bgImg = getSpaceAstronautImage();
+
+    // 1. Background Render: Photorealistic 3D Cinematic Scene or Vector Engine Fallback
+    if (bgImg && bgImg.complete && bgImg.naturalWidth > 0) {
+      // Paint the high-res 3D cinematic scene
+      ctx.drawImage(bgImg, 0, 0, width, height);
+
+      // Clean the central text area with a soft deep-space cosmic gradient so any child name/age is 100% dynamic
+      const cleanGrad = ctx.createRadialGradient(
+        width / 2,
+        height * 0.44,
+        40 * s,
+        width / 2,
+        height * 0.44,
+        460 * s
+      );
+      cleanGrad.addColorStop(0, 'rgba(8, 2, 22, 0.96)');
+      cleanGrad.addColorStop(0.55, 'rgba(8, 2, 22, 0.90)');
+      cleanGrad.addColorStop(0.85, 'rgba(8, 2, 22, 0.55)');
+      cleanGrad.addColorStop(1, 'rgba(6, 2, 16, 0.0)');
+      ctx.fillStyle = cleanGrad;
+      ctx.fillRect(width * 0.28, height * 0.04, width * 0.44, height * 0.80);
+
+      // Dynamic Waving Party Flag overlay held by the cute astronaut
+      ctx.save();
+      ctx.translate(115 * s, 265 * s);
+      ctx.rotate(-Math.PI / 22);
+
+      // White flag cloth banner
+      ctx.save();
+      ctx.shadowColor = 'rgba(0, 0, 0, 0.35)';
+      ctx.shadowBlur = 14 * s;
+      ctx.shadowOffsetY = 4 * s;
+      drawRoundedRect(ctx, -75 * s, -65 * s, 150 * s, 130 * s, 10 * s, '#ffffff', '#e2e8f0', 2 * s);
+      ctx.restore();
+
+      // Dynamic Child Name on the flag
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#0f172a';
+      ctx.font = `900 ${Math.round(20 * s)}px "Caveat", "Outfit", cursive`;
+      ctx.fillText('Happy', 0, -32 * s);
+      ctx.fillText('Birthday', 0, -8 * s);
+      ctx.font = `900 ${Math.round(26 * s)}px "Fredoka", "Outfit", sans-serif`;
+      ctx.fillStyle = '#7c3aed';
+      const cleanChildName = (data.childName || 'Kavya').trim();
+      ctx.fillText(`${cleanChildName}!`, 0, 24 * s);
+
+      // Cute sparkles & crown on flag
+      drawSparkle(ctx, -48 * s, -34 * s, 10 * s, '#facc15');
+      drawSparkle(ctx, 48 * s, 22 * s, 10 * s, '#f472b6');
+      ctx.restore();
+    } else {
+      // High-Fidelity Vector Graphics Fallback
+      // Deep space void
+      const spaceBg = ctx.createLinearGradient(0, 0, 0, height);
+      spaceBg.addColorStop(0, '#04010a');
+      spaceBg.addColorStop(0.5, '#0b041e');
+      spaceBg.addColorStop(1, '#05010d');
+      ctx.fillStyle = spaceBg;
+      ctx.fillRect(0, 0, width, height);
+
+      // Curved Lunar Surface with Craters
+      ctx.save();
+      ctx.beginPath();
+      ctx.ellipse(width * 0.35, height * 1.35, width * 0.75, height * 0.65, 0, 0, Math.PI * 2);
+      ctx.fillStyle = '#475569';
+      ctx.fill();
+      ctx.strokeStyle = '#38bdf8';
+      ctx.lineWidth = 4 * s;
+      ctx.stroke();
+
+      // Craters
+      for (const cr of [
+        { x: 180, y: 920, rx: 60, ry: 30 },
+        { x: 380, y: 960, rx: 75, ry: 35 },
+        { x: 560, y: 940, rx: 50, ry: 25 },
+      ]) {
+        ctx.beginPath();
+        ctx.ellipse(cr.x * s, cr.y * s, cr.rx * s, cr.ry * s, 0, 0, Math.PI * 2);
+        ctx.fillStyle = '#334155';
+        ctx.fill();
+        ctx.strokeStyle = '#1e293b';
+        ctx.lineWidth = 3 * s;
+        ctx.stroke();
+      }
+      ctx.restore();
+
+      // Earth Marble on Bottom Right
+      ctx.save();
+      const earthGrad = ctx.createRadialGradient(width * 0.90, height * 0.90, 40 * s, width * 0.90, height * 0.90, 260 * s);
+      earthGrad.addColorStop(0, '#38bdf8');
+      earthGrad.addColorStop(0.4, '#0284c7');
+      earthGrad.addColorStop(0.8, '#0369a1');
+      earthGrad.addColorStop(1, '#082f49');
+      ctx.shadowColor = '#38bdf8';
+      ctx.shadowBlur = 48 * s;
+      ctx.fillStyle = earthGrad;
+      ctx.beginPath();
+      ctx.arc(width * 0.92, height * 0.92, 240 * s, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+
+      // Astronaut Vector on Left
+      ctx.save();
+      const astX = 220 * s;
+      const astY = 560 * s;
+      // White Space Suit Body
+      drawRoundedRect(ctx, astX - 70 * s, astY - 40 * s, 140 * s, 180 * s, 35 * s, '#f8fafc', '#cbd5e1', 3 * s);
+      // Helmet Sphere
+      ctx.beginPath();
+      ctx.arc(astX, astY - 80 * s, 85 * s, 0, Math.PI * 2);
+      ctx.fillStyle = '#f8fafc';
+      ctx.fill();
+      ctx.strokeStyle = '#cbd5e1';
+      ctx.lineWidth = 3 * s;
+      ctx.stroke();
+      // Helmet Visor (Dark with purple smiling eyes)
+      ctx.beginPath();
+      ctx.arc(astX, astY - 80 * s, 65 * s, 0, Math.PI * 2);
+      ctx.fillStyle = '#0f172a';
+      ctx.fill();
+      // Glowing smiling eyes
+      ctx.fillStyle = '#c084fc';
+      ctx.font = `bold ${Math.round(28 * s)}px "Outfit", sans-serif`;
+      ctx.textAlign = 'center';
+      ctx.fillText('^   ^', astX, astY - 72 * s);
+      // Party cone hat on helmet
+      ctx.beginPath();
+      ctx.moveTo(astX - 25 * s, astY - 150 * s);
+      ctx.lineTo(astX + 35 * s, astY - 225 * s);
+      ctx.lineTo(astX + 25 * s, astY - 145 * s);
+      ctx.closePath();
+      ctx.fillStyle = '#f97316';
+      ctx.fill();
+      ctx.restore();
+
+      // Right Cosmic Purple Balloons with space prints + Gold Star Balloons
+      const rAnchorX = 1600 * s;
+      const rAnchorY = 980 * s;
+      drawAuthenticBalloon(ctx, 1620 * s, 380 * s, 115 * s, 148 * s, '#8b5cf6', '#ede9fe', rAnchorX, rAnchorY, s, -10);
+      drawAuthenticBalloon(ctx, 1505 * s, 520 * s, 112 * s, 144 * s, '#facc15', '#fef9c3', rAnchorX, rAnchorY, s, -12);
+      drawAuthenticBalloon(ctx, 1660 * s, 650 * s, 114 * s, 146 * s, '#8b5cf6', '#ede9fe', rAnchorX, rAnchorY, s, 10);
+      drawAuthenticBalloon(ctx, 1515 * s, 760 * s, 104 * s, 134 * s, '#f472b6', '#ffe4e6', rAnchorX, rAnchorY, s, -8);
+    }
+
+    // 2. Twinkling Stars in central void
+    ctx.save();
+    const centralStars = [
+      { x: 0.35, y: 0.16, c: '#fef08a', r: 2.0 }, { x: 0.42, y: 0.24, c: '#ffffff', r: 2.5 },
+      { x: 0.58, y: 0.18, c: '#38bdf8', r: 2.2 }, { x: 0.65, y: 0.12, c: '#f472b6', r: 1.8 },
+      { x: 0.38, y: 0.72, c: '#ffffff', r: 2.4 }, { x: 0.62, y: 0.70, c: '#fef08a', r: 2.0 },
+    ];
+    for (const st of centralStars) {
+      ctx.fillStyle = st.c;
+      ctx.beginPath();
+      ctx.arc(st.x * width, st.y * height, st.r * s, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.restore();
+
+    // 3. MinGGo Logo Pill at top with Glowing Purple/Violet Neon Aura
+    drawTvMinggoLogoPill(ctx, width / 2, 65 * s, s, '#c084fc', 'rgba(168, 85, 247, 0.85)', logoImg);
+
+    // 4. "WELCOME TO" in Electric Cyan / Aqua
+    const welcome = (data.titlePrefix || 'WELCOME TO').toUpperCase();
+    ctx.save();
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.font = `900 ${Math.round(52 * s)}px "Outfit", "Fredoka", sans-serif`;
+    ctx.fillStyle = '#00e5ff';
+    ctx.shadowColor = 'rgba(0, 229, 255, 0.65)';
+    ctx.shadowBlur = 18 * s;
+    ctx.fillText(welcome, width / 2, 268 * s);
+    ctx.restore();
+
+    // 5. Hero Name ("KAVYA's 7th") in Chunky 3D Bubbly Purple with Intense Neon Halo
+    const heroText = getHeroNameText(data);
+    ctx.save();
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+
+    let heroFontSize = 162 * s;
+    ctx.font = `900 ${heroFontSize}px "Fredoka", "Baloo 2", sans-serif`;
+    let textWidth = ctx.measureText(heroText).width;
+    const maxTextWidth = 1320 * s;
+    if (textWidth > maxTextWidth) {
+      heroFontSize = Math.floor(heroFontSize * (maxTextWidth / textWidth));
+      ctx.font = `900 ${heroFontSize}px "Fredoka", "Baloo 2", sans-serif`;
+      textWidth = ctx.measureText(heroText).width;
+    }
+    const heroY = 435 * s;
+
+    // Layer A: Intense Purple Neon Glow Aura
+    ctx.save();
+    ctx.shadowColor = 'rgba(192, 132, 252, 0.95)';
+    ctx.shadowBlur = 44 * s;
+    ctx.strokeStyle = '#c084fc';
+    ctx.lineWidth = 38 * s;
+    ctx.lineJoin = 'round';
+    ctx.lineCap = 'round';
+    ctx.strokeText(heroText, width / 2, heroY);
+    ctx.restore();
+
+    // Layer B: Crisp Heavy White Die-Cut Outline
+    ctx.strokeStyle = '#ffffff';
+    ctx.lineWidth = 32 * s;
+    ctx.lineJoin = 'round';
+    ctx.lineCap = 'round';
+    ctx.strokeText(heroText, width / 2, heroY);
+
+    // Layer C: Inner Luminous Lilac-to-Violet Fill Gradient
+    const nameGrad = ctx.createLinearGradient(0, heroY - 70 * s, 0, heroY + 60 * s);
+    nameGrad.addColorStop(0, '#ffffff');
+    nameGrad.addColorStop(0.35, '#e9d5ff');
+    nameGrad.addColorStop(0.70, '#c084fc');
+    nameGrad.addColorStop(1, '#9333ea');
+    ctx.fillStyle = nameGrad;
+    ctx.fillText(heroText, width / 2, heroY);
+
+    // Layer D: Sparkle Stars on the letters
+    drawSparkle(ctx, width / 2 - textWidth * 0.32, heroY - 35 * s, 14 * s, '#ffffff');
+    drawSparkle(ctx, width / 2 + textWidth * 0.12, heroY - 45 * s, 16 * s, '#ffffff');
+    drawSparkle(ctx, width / 2 + textWidth * 0.38, heroY - 30 * s, 14 * s, '#fef08a');
+    ctx.restore();
+
+    // 6. "Birthday Party!" (Line 1: 3D Golden Marquee "Birthday" • Line 2: Lilac "Party!" with Rocket Loop)
+    // Line 1: Golden 3D "Birthday"
+    ctx.save();
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.font = `900 ${Math.round(76 * s)}px "Fredoka", "Baloo 2", sans-serif`;
+
+    // 3D Drop Shadow
+    ctx.save();
+    ctx.shadowColor = 'rgba(234, 179, 8, 0.65)';
+    ctx.shadowBlur = 20 * s;
+    ctx.shadowOffsetY = 6 * s;
+    ctx.strokeStyle = '#78350f';
+    ctx.lineWidth = 12 * s;
+    ctx.strokeText('Birthday', width / 2, 545 * s);
+    ctx.restore();
+
+    const goldGrad = ctx.createLinearGradient(0, 510 * s, 0, 580 * s);
+    goldGrad.addColorStop(0, '#fef08a');
+    goldGrad.addColorStop(0.45, '#facc15');
+    goldGrad.addColorStop(1, '#ca8a04');
+    ctx.fillStyle = goldGrad;
+    ctx.fillText('Birthday', width / 2, 545 * s);
+    ctx.restore();
+
+    // Glowing Purple Neon Orbit Loop around "PARTY!"
+    ctx.save();
+    ctx.strokeStyle = '#c084fc';
+    ctx.lineWidth = 4.5 * s;
+    ctx.shadowColor = '#d946ef';
+    ctx.shadowBlur = 22 * s;
+    ctx.beginPath();
+    ctx.ellipse(width / 2, 638 * s, 260 * s, 44 * s, -Math.PI / 18, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.restore();
+
+    // Swooping Rocket Ship on the right of the orbit loop
+    ctx.save();
+    const rkX = width / 2 + 235 * s;
+    const rkY = 620 * s;
+    ctx.translate(rkX, rkY);
+    ctx.rotate(Math.PI / 4.5);
+
+    // Thruster fire plume
+    const rkFlame = ctx.createRadialGradient(0, 16 * s, 2 * s, 0, 24 * s, 22 * s);
+    rkFlame.addColorStop(0, '#ffffff');
+    rkFlame.addColorStop(0.4, '#facc15');
+    rkFlame.addColorStop(1, '#ef4444');
+    ctx.fillStyle = rkFlame;
+    ctx.beginPath();
+    ctx.moveTo(-7 * s, 10 * s);
+    ctx.lineTo(0, 32 * s);
+    ctx.lineTo(7 * s, 10 * s);
+    ctx.closePath();
+    ctx.fill();
+
+    // Fuselage
+    drawRoundedRect(ctx, -9 * s, -16 * s, 18 * s, 28 * s, 5 * s, '#ffffff', '#cbd5e1', 1.5 * s);
+    // Nose cone
+    ctx.fillStyle = '#ef4444';
+    ctx.beginPath();
+    ctx.moveTo(-9 * s, -16 * s);
+    ctx.lineTo(0, -28 * s);
+    ctx.lineTo(9 * s, -16 * s);
+    ctx.closePath();
+    ctx.fill();
+    // Cyan porthole window
+    ctx.fillStyle = '#38bdf8';
+    ctx.beginPath();
+    ctx.arc(0, -6 * s, 4.5 * s, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+
+    // Line 2: Lilac 3D "PARTY!"
+    ctx.save();
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.font = `900 ${Math.round(82 * s)}px "Fredoka", "Baloo 2", sans-serif`;
+
+    ctx.save();
+    ctx.shadowColor = 'rgba(0, 0, 0, 0.75)';
+    ctx.shadowBlur = 18 * s;
+    ctx.shadowOffsetY = 6 * s;
+    ctx.strokeStyle = '#ffffff';
+    ctx.lineWidth = 14 * s;
+    ctx.strokeText('PARTY!', width / 2, 638 * s);
+    ctx.restore();
+
+    ctx.fillStyle = '#c084fc';
+    ctx.fillText('PARTY!', width / 2, 638 * s);
+    ctx.restore();
+
+    // 7. Venue / Floor Pill ("📍 2nd Floor, Play Zone") in Dark Translucent Pill with Glowing Cyan Border
+    const zone = data.zoneText || '2nd Floor, Play Zone';
+    const zoneTextWithPin = zone.startsWith('📍') ? zone : `📍 ${zone}`;
+    ctx.save();
+    ctx.font = `bold ${Math.round(28 * s)}px "Outfit", sans-serif`;
+    const zoneW = ctx.measureText(zoneTextWithPin).width + 96 * s;
+    const zoneH = 68 * s;
+    const zoneY = 730 * s;
+
+    // Glowing Cyan Border
+    ctx.save();
+    ctx.shadowColor = 'rgba(0, 229, 255, 0.55)';
+    ctx.shadowBlur = 20 * s;
+    drawRoundedRect(
+      ctx,
+      width / 2 - zoneW / 2,
+      zoneY - zoneH / 2,
+      zoneW,
+      zoneH,
+      zoneH / 2,
+      'rgba(8, 4, 24, 0.90)',
+      '#00e5ff',
+      3 * s
+    );
+    ctx.restore();
+
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillStyle = '#ffffff';
+    ctx.fillText(zoneTextWithPin, width / 2, zoneY);
+    ctx.restore();
+  },
+};
+
+// ============================================================================
+// AGGREGATION & EXPORTS (24 TV DISPLAY TEMPLATES)
 // ============================================================================
 export const allTvTemplates: TvScreenTemplate[] = [
   templateClassicBalloons,
+  templateSpaceAstronautLunar,
+  templateSpaceGalaxy,
   templateMidnightGold,
   templateDinoSafari,
-  templateSpaceGalaxy,
   templateSuperheroBlast,
   templatePastelTeddy,
   templatePrincessUnicorn,
@@ -3114,6 +4296,9 @@ export const allTvTemplates: TvScreenTemplate[] = [
   templateBounceTrampoline,
   templateFrozenWinter,
   templateRockstarMusic,
+  templateSpaceRocket,
+  templateSpaceSolarSystem,
+  templateSpaceWarpSpeed,
 ];
 
 export function getTvTemplateById(id: string): TvScreenTemplate {
@@ -3130,12 +4315,17 @@ export const defaultTvScreenData: TvScreenData = {
 };
 
 export const sampleTvPresets = [
-  { id: 'kavya', name: 'Kavya', age: '7th', zone: '2nd Floor, Play Zone', templateId: 'tv-classic-balloons' },
+  { id: 'kavya-astronaut', name: 'Kavya (3D Astronaut)', age: '7th', zone: '2nd Floor, Play Zone', templateId: 'tv-space-astronaut-lunar' },
+  { id: 'kavya', name: 'Kavya (Classic)', age: '7th', zone: '2nd Floor, Play Zone', templateId: 'tv-classic-balloons' },
+  { id: 'kavya-space', name: 'Kavya (Saturn)', age: '7th', zone: '2nd Floor, Play Zone', templateId: 'tv-space-galaxy' },
   { id: 'aarav', name: 'Aarav', age: '5th', zone: 'Dino Adventure Zone', templateId: 'tv-dino-safari' },
   { id: 'saanvi', name: 'Baby Saanvi', age: '1st', zone: 'Toddler Cloud Zone', templateId: 'tv-pastel-teddy' },
   { id: 'rohan', name: 'Rohan', age: '10th', zone: 'Arcade Arena Level 2', templateId: 'tv-cyber-arcade' },
   { id: 'ananya', name: 'Ananya', age: '8th', zone: 'Royal Princess Palace', templateId: 'tv-princess-unicorn' },
   { id: 'reyansh', name: 'Reyansh', age: '6th', zone: 'Superhero HQ Zone', templateId: 'tv-superhero-blast' },
+  { id: 'virat', name: 'Virat', age: '7th', zone: 'Rocket Launch & Gravity Pad', templateId: 'tv-space-rocket' },
+  { id: 'zoya', name: 'Zoya', age: '6th', zone: 'Cosmic Planetarium & Orbit Zone', templateId: 'tv-space-solar-system' },
+  { id: 'samar', name: 'Samar', age: '8th', zone: 'Starship Bridge & Hyper-Jump Arena', templateId: 'tv-space-warp-speed' },
   { id: 'kiara', name: 'Kiara', age: '7th', zone: 'Undersea Coral & Ball Pool', templateId: 'tv-ocean-mermaid' },
   { id: 'kabir', name: 'Kabir', age: '8th', zone: 'Pit Lane & Go-Kart Arena', templateId: 'tv-speed-racing' },
   { id: 'myra', name: 'Myra', age: '4th', zone: 'Lollipop Lounge & Candy Land', templateId: 'tv-candy-wonderland' },
